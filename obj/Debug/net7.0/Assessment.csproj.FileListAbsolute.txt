@@ -1,0 +1,4 @@
+C:\Users\kugao\Desktop\Assessment\obj\Debug\net7.0\Assessment.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kugao\Desktop\Assessment\obj\Debug\net7.0\Assessment.AssemblyInfoInputs.cache
+C:\Users\kugao\Desktop\Assessment\obj\Debug\net7.0\Assessment.AssemblyInfo.cs
+C:\Users\kugao\Desktop\Assessment\obj\Debug\net7.0\Assessment.csproj.CoreCompileInputs.cache

@@ -1,8 +1,7 @@
 using System;
 using System.Threading.Tasks;
 namespace Assessment{ 
-public class Pokedex : FuncoesMenu{
-      
+public class Pokedex : FuncoesMenu{      
         public Pokedex(string NomePokemon, double PesoPokemon, bool Eh_Pokemon_Shiny, int NivelPokemon, DateTime dataDaCaptura, String IdPokedex) : 
         
         base(NomePokemon, PesoPokemon, Eh_Pokemon_Shiny, NivelPokemon, dataDaCaptura, IdPokedex)
@@ -15,7 +14,6 @@ public class Pokedex : FuncoesMenu{
     String resposta = Console.ReadLine();
 
 switch(resposta){
-
 
     case "1":
 
@@ -32,12 +30,10 @@ switch(resposta){
     Thread.Sleep(1500);
     Console.Clear();
     break;
-}
 
 
 
 }
-
-
-    }
+}
+   }
 }

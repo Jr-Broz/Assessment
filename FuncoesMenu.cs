@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 namespace Assessment{ 
 public class FuncoesMenu : IFuncoes{
 
@@ -83,7 +84,7 @@ public double getPesoPokemon(){
     return PesoPokemon;
 }
 
-    public void SalvarEmLista(){
+    public void SalvarEmTexto(){
 
         try { 
 
@@ -127,29 +128,104 @@ public double getPesoPokemon(){
         Thread.Sleep(1300);
         Console.WriteLine("Sucesso na Operação, obrigado por utilizar.");
 
+FileStream f = new FileStream("Arquivos_Pokedex.txt", FileMode.OpenOrCreate);
+StreamWriter arquivar = new StreamWriter(f);
+List<String> listagem = new List<string>();
 
+listagem.Add(getNomePokemon());
+listagem.Add(getIdPokedex());
 
+String dataCapturaConvertida = Convert.ToString(dataDaCaptura);
+String nivelConvertido = Convert.ToString(getNivelPokemon());
+String AuxShinyConvertido = Convert.ToString(variavelAuxiliarShiny);
+String AuxPesoConvertido = Convert.ToString(variavelAuxiliarPeso);
 
+foreach(string element in listagem){
+       
+        arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon());
+        arquivar.WriteLine("Nivel: " + nivelConvertido);
+        arquivar.WriteLine("É Shiny: " + AuxShinyConvertido);
+        arquivar.WriteLine("Peso: " + AuxPesoConvertido);
+        arquivar.WriteLine("ID: " + getIdPokedex());
+}
 
-
-
+    arquivar.Close();
+    f.Close();
 
 }
- 
  
     catch{
 
     System.Console.WriteLine("Ocorreu um Erro ao Cadastrar O Pokemon na Pokedex.");
 
 }
+    }
 
+
+    public void SalvarEmLista(){
+
+            try{
+
+            }
+catch{
+    System.Console.WriteLine("Algo de Errado Ocorreu.");
+}
+
+}
+
+
+public void alterarDados(){
+
+     try{
+
+            }
+catch{
+    System.Console.WriteLine("Algo de Errado Ocorreu.");
+}
+}
+public void ExcluirDados(){
+     try{
+
+            }
+catch{
+    System.Console.WriteLine("Algo de Errado Ocorreu.");
+}
+}
+public void LerDados(){
+
+ try{
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+catch{
+    System.Console.WriteLine("Algo de Errado Ocorreu.");
+}
+
+
+
+}
+    public void  pesquisarDados(){
 
     }
 
 
-    public void SalvarEmTexto(){
 
-}
+
+
+
+
 
 
 
