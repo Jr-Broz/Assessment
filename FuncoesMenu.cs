@@ -12,9 +12,9 @@ public class FuncoesMenu : IFuncoes{
         double variavelAuxiliarPeso;
         bool variavelAuxiliarShiny;
 
- FileStream arquivo = new FileStream("Arquivos_Pokedex.txt", FileMode.OpenOrCreate);
+// FileStream arquivo = new FileStream("Arquivos_Pokedex.txt", FileMode.OpenOrCreate);
 
-public static List<String> listagem = new List<String>();
+ List<String> listagem = new List<String>();
 
     public void setNomePokemon(String nomePokemon){
 
@@ -89,9 +89,10 @@ public static List<String> listagem = new List<String>();
         setPesoPokemon(variavelAuxiliarPeso);
 
         Console.WriteLine("O pokemon E Shiny?");
-        variavelAuxiliarShiny = Boolean.Parse(Console.ReadLine());	
-        
-        if(variavelAuxiliarShiny == true){
+        variavelAuxiliarShiny = Boolean.Parse(Console.ReadLine());
+
+         String AuxShinyConvertido = Convert.ToString(variavelAuxiliarShiny);    
+        if(AuxShinyConvertido == "Sim".ToLower()){
 
             setEh_Pokemon_Shiny(true);
         }
@@ -117,26 +118,28 @@ public static List<String> listagem = new List<String>();
         Console.WriteLine("Escrevendo em um arquivo de texto.");
         Thread.Sleep(1300);
         Console.WriteLine("Sucesso na Operação, obrigado por utilizar.");
+        System.Console.WriteLine("Para Procurar pelo Pokemon, procure por: " + IdPokedex);
 
-    StreamWriter arquivar = new StreamWriter(arquivo);
+    StreamWriter arquivar = new StreamWriter(@"Arquivos_Pokedex.txt", true);
+    //   arquivar.AutoFlush = true;
+   // listagem.Add(getNomePokemon());
+    //listagem.Add(getIdPokedex());
 
-    listagem.Add(getNomePokemon());
-    listagem.Add(getIdPokedex());
-
+    /*
     String dataCapturaConvertida = Convert.ToString(dataDaCaptura);
     String nivelConvertido = Convert.ToString(getNivelPokemon());
-    String AuxShinyConvertido = Convert.ToString(variavelAuxiliarShiny);
+   
     String AuxPesoConvertido = Convert.ToString(variavelAuxiliarPeso);
-
+*/
         arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon());
         arquivar.WriteLine("Nivel: " + getNivelPokemon());
-        arquivar.WriteLine("Data de Captura: " + dataCapturaConvertida);
-        arquivar.WriteLine("É Shiny: " +  variavelAuxiliarShiny);
-        arquivar.WriteLine("Peso: " + AuxPesoConvertido);
+        arquivar.WriteLine("Data de Captura: " + getDataCaptura());
+        arquivar.WriteLine("É Shiny: " +  AuxShinyConvertido);
+        arquivar.WriteLine("Peso: " + getPesoPokemon());
         arquivar.WriteLine("ID: " + IdPokedex);
-
+        arquivar.WriteLine("--------------------------");
     arquivar.Close();
-    arquivo.Close();
+    
 }
     catch{
 
@@ -145,6 +148,7 @@ public static List<String> listagem = new List<String>();
 }
     public void SalvarEmLista(){
 
+/*
         Console.WriteLine("Escreva o nome do pokemon");
         setNomePokemon(Console.ReadLine()); 
 
@@ -227,7 +231,7 @@ public static List<String> listagem = new List<String>();
     }
     arquivo.Close();    
 }
-
+*/
 
 
 }

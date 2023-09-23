@@ -15,12 +15,12 @@ switch(resposta){
 
     case "1":
 
-    SalvarEmLista();
+    SalvarEmTexto();
     break;
 
     case "2":
 
-    SalvarEmTexto();
+    SalvarEmLista();
     break; 
 
     default:
