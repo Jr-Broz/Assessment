@@ -9,10 +9,10 @@ public class FuncoesMenu : IFuncoes{
         protected int NivelPokemon;
         protected DateTime dataDaCaptura;
         protected String IdPokedex;     
-        double variavelAuxiliarPeso;
-        bool variavelAuxiliarShiny;
-
-// FileStream arquivo = new FileStream("Arquivos_Pokedex.txt", FileMode.OpenOrCreate);
+        protected double variavelAuxiliarPeso;
+        protected bool variavelAuxiliarShiny;
+        protected String kg = "kg";
+    public  StreamWriter arquivar = new StreamWriter(@"Arquivos_Pokedex.txt", true);
 
  List<String> listagem = new List<String>();
 
@@ -80,7 +80,6 @@ public class FuncoesMenu : IFuncoes{
  public void SalvarEmTexto(){
 
  try { 
-
         Console.WriteLine("Escreva o nome do pokemon");
         setNomePokemon(Console.ReadLine()); 
 
@@ -92,7 +91,7 @@ public class FuncoesMenu : IFuncoes{
         variavelAuxiliarShiny = Boolean.Parse(Console.ReadLine());
 
          String AuxShinyConvertido = Convert.ToString(variavelAuxiliarShiny);    
-        if(AuxShinyConvertido == "Sim".ToLower()){
+        if(AuxShinyConvertido == "sim".ToLower()){
 
             setEh_Pokemon_Shiny(true);
         }
@@ -118,37 +117,21 @@ public class FuncoesMenu : IFuncoes{
         Console.WriteLine("Escrevendo em um arquivo de texto.");
         Thread.Sleep(1300);
         Console.WriteLine("Sucesso na Operação, obrigado por utilizar.");
-        System.Console.WriteLine("Para Procurar pelo Pokemon, procure por: " + IdPokedex);
+        System.Console.WriteLine("Para Procurar pelo Pokemon, procure por: " + getNomePokemon());
 
-    StreamWriter arquivar = new StreamWriter(@"Arquivos_Pokedex.txt", true);
-    //   arquivar.AutoFlush = true;
-   // listagem.Add(getNomePokemon());
-    //listagem.Add(getIdPokedex());
-
-    /*
-    String dataCapturaConvertida = Convert.ToString(dataDaCaptura);
-    String nivelConvertido = Convert.ToString(getNivelPokemon());
+arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon() + " , " + "ID: " + IdPokedex + " , " + "Nivel: " + getNivelPokemon() + " , " + "Data de Captura: " + getDataCaptura() + " , " + "É Shiny: " +  AuxShinyConvertido + " , " + "Peso: " + getPesoPokemon() + kg);
    
-    String AuxPesoConvertido = Convert.ToString(variavelAuxiliarPeso);
-*/
-        arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon());
-        arquivar.WriteLine("Nivel: " + getNivelPokemon());
-        arquivar.WriteLine("Data de Captura: " + getDataCaptura());
-        arquivar.WriteLine("É Shiny: " +  AuxShinyConvertido);
-        arquivar.WriteLine("Peso: " + getPesoPokemon());
-        arquivar.WriteLine("ID: " + IdPokedex);
-        arquivar.WriteLine("--------------------------");
+    arquivar.WriteLine("--------------------------");
     arquivar.Close();
-    
 }
-    catch{
+    catch(Exception ex){
 
-    System.Console.WriteLine("Ocorreu um Erro ao Cadastrar O Pokemon na Pokedex.");
+    System.Console.WriteLine("Ocorreu um Erro ao Cadastrar O Pokemon na Pokedex." + ex.Message);
     }
 }
     public void SalvarEmLista(){
+        try{ 
 
-/*
         Console.WriteLine("Escreva o nome do pokemon");
         setNomePokemon(Console.ReadLine()); 
 
@@ -182,8 +165,6 @@ public class FuncoesMenu : IFuncoes{
         Thread.Sleep(1200);
         Console.WriteLine("Conferindo informações..");
         Thread.Sleep(1500);
-        Console.WriteLine("Escrevendo em um arquivo de texto.");
-        Thread.Sleep(1300);
         Console.WriteLine("Sucesso na Operação, obrigado por utilizar.");
 
     String dataCapturaConvertida = Convert.ToString(dataDaCaptura);
@@ -197,6 +178,8 @@ public class FuncoesMenu : IFuncoes{
     listagem.Add(nivelConvertido);
     listagem.Add(AuxShinyConvertido);
     listagem.Add(AuxPesoConvertido);
+
+    System.Console.WriteLine("Listando Todas as Informações: ");
 
     foreach(string element in listagem){
        
@@ -229,20 +212,12 @@ public class FuncoesMenu : IFuncoes{
 
         System.Console.WriteLine("Peso: " + AuxPesoConvertido);
     }
-    arquivo.Close();    
+    }
+        }catch(Exception ex){
+        
+            System.Console.WriteLine("Houve algo de errado " + ex.Message);
+        }  
 }
-*/
-
-
-}
-
-
-
-
-
-
-
-
 
 
 public void alterarDados(){
@@ -250,12 +225,14 @@ public void alterarDados(){
      try{
 
             }
-catch{
-    System.Console.WriteLine("Algo de Errado Ocorreu.");
+catch(Exception ex){
+    System.Console.WriteLine("Algo de Errado Ocorreu." + ex.Message);
 }
 }
 public void ExcluirDados(){
      try{
+
+
 
             }
 catch{
@@ -263,30 +240,38 @@ catch{
 }
 }
 
+    public void  pesquisarDadoPorNome(){
 
-public void LerDados(){
-
-
+ try { 
+    
+        System.Console.WriteLine("Escreva o nome que quer procurar.");
+        string nome_Sendo_Procurado = Console.ReadLine();
         
-}
-  
+        bool foiAchado = false;
 
+    using(StreamReader reader = new StreamReader(@"Arquivos_Pokedex.txt")){
 
+            string linha;
+            while((linha = reader.ReadLine()) != null){
 
+                        if(linha.Contains("Nome: " + nome_Sendo_Procurado )){ 
+                            
+                            foiAchado = true;
+                            System.Console.WriteLine("Informação encontrada:");
+                            System.Console.WriteLine(linha);
+                            System.Console.WriteLine("---------------------");
+                        }
+                    }
+            }
+            if(!foiAchado ){
 
-    public void  pesquisarDadoPorID(){
+                System.Console.WriteLine("O Nome escrito não foi encontrado, tem certeza que o inseriu corretamente?");
+            }
+   }
+   catch(Exception ex){
 
+    System.Console.WriteLine("Ocorreu um Erro, tente novamente." + ex.Message);
+   }
     }
-
-
-
-
-
-
-
-
-
-
-
 }   //Fim da classe.
 } //Fim namespace.
