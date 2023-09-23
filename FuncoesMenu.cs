@@ -1,95 +1,85 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 namespace Assessment{ 
 public class FuncoesMenu : IFuncoes{
-
         protected String NomePokemon;
         protected double PesoPokemon;
-       protected bool Eh_Pokemon_Shiny;
+        protected bool Eh_Pokemon_Shiny;
         protected int NivelPokemon;
         protected DateTime dataDaCaptura;
-        protected String IdPokedex; 
+        protected String IdPokedex;     
+        double variavelAuxiliarPeso;
+        bool variavelAuxiliarShiny;
 
-        public FuncoesMenu(String NomePokemon, double PesoPokemon, bool Eh_Pokemon_Shiny, int NivelPokemon, DateTime dataDaCaptura, String IdPokedex) {
+ FileStream arquivo = new FileStream("Arquivos_Pokedex.txt", FileMode.OpenOrCreate);
 
-            this.NomePokemon = NomePokemon;
-            this.PesoPokemon = PesoPokemon;
-            this.Eh_Pokemon_Shiny = Eh_Pokemon_Shiny;
-            this.NivelPokemon = NivelPokemon;
-            this.dataDaCaptura = dataDaCaptura;
-            this.IdPokedex = IdPokedex;
-
-
-        }
+public static List<String> listagem = new List<String>();
 
     public void setNomePokemon(String nomePokemon){
 
         NomePokemon = nomePokemon;
    
 }
-public string getNomePokemon(){
+    public string getNomePokemon(){
 
     return NomePokemon;
 }
 
-public void setNivelPokemon(int nivelPokemon){
+    public void setNivelPokemon(int nivelPokemon){
 
     NivelPokemon = nivelPokemon;
 
 }
 
-public int getNivelPokemon(){
+    public int getNivelPokemon(){
 
     return NivelPokemon;
 }
 
-public void setEh_Pokemon_Shiny(bool eh_shiny){
+    public void setEh_Pokemon_Shiny(bool eh_shiny){
 
     Eh_Pokemon_Shiny = eh_shiny;
 }
 
-public bool getEh_Pokemon_Shiny(){
+    public bool getEh_Pokemon_Shiny(){
 
     return Eh_Pokemon_Shiny;
 }
 
-public void setDataCaptura(DateTime data_Captura){
+    public void setDataCaptura(DateTime data_Captura){
 
     dataDaCaptura = data_Captura;
 }
-public DateTime getDataCaptura(){
+    public DateTime getDataCaptura(){
 
      return dataDaCaptura;
 
 }
 
-public void setIdPokedex(String Id_pokedex){
+    public void setIdPokedex(String Id_pokedex){
 
     IdPokedex =  Id_pokedex;
 }
 
-public String getIdPokedex(){
+    public String getIdPokedex(){
 
     return IdPokedex;
 
 }
 
-public void setPesoPokemon(double pesoPokemon){
+    public void setPesoPokemon(double pesoPokemon){
 
     PesoPokemon = pesoPokemon;
 }
 
-public double getPesoPokemon(){
+    public double getPesoPokemon(){
 
     return PesoPokemon;
 }
+ public void SalvarEmTexto(){
 
-    public void SalvarEmTexto(){
-
-        try { 
-
-        double variavelAuxiliarPeso;
-        bool variavelAuxiliarShiny;
+ try { 
 
         Console.WriteLine("Escreva o nome do pokemon");
         setNomePokemon(Console.ReadLine()); 
@@ -105,7 +95,7 @@ public double getPesoPokemon(){
 
             setEh_Pokemon_Shiny(true);
         }
-        else{
+         else{
 
             setEh_Pokemon_Shiny(false);
         }
@@ -128,50 +118,127 @@ public double getPesoPokemon(){
         Thread.Sleep(1300);
         Console.WriteLine("Sucesso na Operação, obrigado por utilizar.");
 
-FileStream f = new FileStream("Arquivos_Pokedex.txt", FileMode.OpenOrCreate);
-StreamWriter arquivar = new StreamWriter(f);
-List<String> listagem = new List<string>();
+    StreamWriter arquivar = new StreamWriter(arquivo);
 
-listagem.Add(getNomePokemon());
-listagem.Add(getIdPokedex());
+    listagem.Add(getNomePokemon());
+    listagem.Add(getIdPokedex());
 
-String dataCapturaConvertida = Convert.ToString(dataDaCaptura);
-String nivelConvertido = Convert.ToString(getNivelPokemon());
-String AuxShinyConvertido = Convert.ToString(variavelAuxiliarShiny);
-String AuxPesoConvertido = Convert.ToString(variavelAuxiliarPeso);
+    String dataCapturaConvertida = Convert.ToString(dataDaCaptura);
+    String nivelConvertido = Convert.ToString(getNivelPokemon());
+    String AuxShinyConvertido = Convert.ToString(variavelAuxiliarShiny);
+    String AuxPesoConvertido = Convert.ToString(variavelAuxiliarPeso);
 
-foreach(string element in listagem){
-       
         arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon());
-        arquivar.WriteLine("Nivel: " + nivelConvertido);
-        arquivar.WriteLine("É Shiny: " + AuxShinyConvertido);
+        arquivar.WriteLine("Nivel: " + getNivelPokemon());
+        arquivar.WriteLine("Data de Captura: " + dataCapturaConvertida);
+        arquivar.WriteLine("É Shiny: " +  variavelAuxiliarShiny);
         arquivar.WriteLine("Peso: " + AuxPesoConvertido);
-        arquivar.WriteLine("ID: " + getIdPokedex());
-}
+        arquivar.WriteLine("ID: " + IdPokedex);
 
     arquivar.Close();
-    f.Close();
-
+    arquivo.Close();
 }
- 
     catch{
 
     System.Console.WriteLine("Ocorreu um Erro ao Cadastrar O Pokemon na Pokedex.");
-
-}
     }
-
-
+}
     public void SalvarEmLista(){
 
-            try{
+        Console.WriteLine("Escreva o nome do pokemon");
+        setNomePokemon(Console.ReadLine()); 
 
-            }
-catch{
-    System.Console.WriteLine("Algo de Errado Ocorreu.");
+        Console.WriteLine("Escreva o Peso do Pokemon");
+        variavelAuxiliarPeso = Double.Parse(Console.ReadLine());
+        setPesoPokemon(variavelAuxiliarPeso);
+
+        Console.WriteLine("O pokemon E Shiny?");
+        variavelAuxiliarShiny = Boolean.Parse(Console.ReadLine());	
+        
+        if(variavelAuxiliarShiny == true){
+
+            setEh_Pokemon_Shiny(true);
+        }
+         else{
+
+            setEh_Pokemon_Shiny(false);
+        }
+
+        Console.WriteLine("Qual o Nivel do pokemon");
+        setNivelPokemon(Int32.Parse(Console.ReadLine()));
+
+        Console.WriteLine("Qual a data da Captura");
+        setDataCaptura(DateTime.Parse(Console.ReadLine()));
+
+        String variavelAuxiliarId = Guid.NewGuid().ToString().Substring(0, Guid.NewGuid().ToString().IndexOf("-"));
+
+        Console.WriteLine("Gerando ID Único do pokemon.."); 
+        setIdPokedex(variavelAuxiliarId);
+        
+        Thread.Sleep(1200);
+        Console.WriteLine("Conferindo informações..");
+        Thread.Sleep(1500);
+        Console.WriteLine("Escrevendo em um arquivo de texto.");
+        Thread.Sleep(1300);
+        Console.WriteLine("Sucesso na Operação, obrigado por utilizar.");
+
+    String dataCapturaConvertida = Convert.ToString(dataDaCaptura);
+    String nivelConvertido = Convert.ToString(getNivelPokemon());
+    String AuxShinyConvertido = Convert.ToString(variavelAuxiliarShiny);
+    String AuxPesoConvertido = Convert.ToString(variavelAuxiliarPeso);
+
+    listagem.Add(getNomePokemon());
+    listagem.Add(getIdPokedex());
+    listagem.Add(dataCapturaConvertida);
+    listagem.Add(nivelConvertido);
+    listagem.Add(AuxShinyConvertido);
+    listagem.Add(AuxPesoConvertido);
+
+    foreach(string element in listagem){
+       
+    if(element == getNomePokemon()){
+
+        System.Console.WriteLine("Nome Pokemon: " + getNomePokemon());
+    }
+    
+    else  if(element == getIdPokedex()){
+
+        System.Console.WriteLine("ID: " + variavelAuxiliarId);
+    }
+    
+    else if(element == dataCapturaConvertida){
+
+        System.Console.WriteLine("Data de Captura : " + getDataCaptura());
+    }
+    
+   else  if(element == nivelConvertido){
+
+        System.Console.WriteLine("Nivel Pokemon: " + getNivelPokemon());
+    }
+    
+    else if(element == AuxShinyConvertido){
+
+        System.Console.WriteLine("É Shiny? : " + AuxShinyConvertido);
+}
+    
+    else if(element == AuxPesoConvertido){
+
+        System.Console.WriteLine("Peso: " + AuxPesoConvertido);
+    }
+    arquivo.Close();    
 }
 
+
+
 }
+
+
+
+
+
+
+
+
 
 
 public void alterarDados(){
@@ -191,32 +258,19 @@ catch{
     System.Console.WriteLine("Algo de Errado Ocorreu.");
 }
 }
+
+
 public void LerDados(){
 
- try{
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-            }
-catch{
-    System.Console.WriteLine("Algo de Errado Ocorreu.");
+        
 }
+  
 
 
 
-}
-    public void  pesquisarDados(){
+
+    public void  pesquisarDadoPorID(){
 
     }
 
@@ -230,5 +284,5 @@ catch{
 
 
 
-}   
-}
+}   //Fim da classe.
+} //Fim namespace.
