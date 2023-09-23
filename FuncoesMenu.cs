@@ -125,7 +125,7 @@ public class FuncoesMenu : IFuncoes{
         Console.WriteLine("Sucesso na Operação, obrigado por utilizar.");
         System.Console.WriteLine("Para Procurar pelo Pokemon, procure por: " + getNomePokemon());
 
-arquivar.WriteLine("Nome do Pokemon:" + getNomePokemon() + " , " + "ID: " + IdPokedex + " , " + "Nivel: " + getNivelPokemon() + " , " + "Data de Captura: " + getDataCaptura() + " , " + "É Shiny: " +  AuxShinyConvertido + " , " + "Peso: " + getPesoPokemon() + kg);
+arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon() + "," + " ID: " + IdPokedex + "," + " Nivel: " + getNivelPokemon() + "," + " Data de Captura: " + getDataCaptura() + "," + " É Shiny: " +  AuxShinyConvertido + "," + " Peso: " + getPesoPokemon() + kg);
    
     arquivar.WriteLine("--------------------------");
     arquivar.Close();
@@ -248,7 +248,6 @@ catch{
     public void  pesquisarDadoPorNome(){
 
  try { 
-
         System.Console.WriteLine("Escreva o nome que quer procurar.");
         string nome_Sendo_Procurado = Console.ReadLine();
         
@@ -257,35 +256,43 @@ catch{
         System.Console.WriteLine("Aguarde um pouco........");
         Thread.Sleep(3000);
 
-      if(mutex != null){
+        String caminho = "Arquivos_Pokedex.txt";
 
-        mutex.WaitOne();
-      }
+        String[] linhas = File.ReadAllLines(caminho);
 
-    using(StreamReader reader = new StreamReader(@"Arquivos_Pokedex.txt", true)){
+    var procuraPorNome = linhas.Where(linha => linha.Contains(nome_Sendo_Procurado)).ToList();       
 
-            string linha;
-            while((linha = reader.ReadLine()) != null){
+        if(procuraPorNome.Count > 0){
 
-                        if(linha.Contains("Nome:" + nome_Sendo_Procurado )){ 
+            System.Console.WriteLine("Acreditamos que encontramos o que procurava.");
+            System.Console.WriteLine("--------------------------------------------");
+            foreach(var linha in linhas){
+
+                System.Console.WriteLine(linha);
+
+            }
+        }
+        else{
+
+             System.Console.WriteLine("O Nome escrito não foi encontrado, tem certeza que o inseriu corretamente?");
+        }
+            /*
+
+                if(linha.Contains("Nome:" + nome_Sendo_Procurado )){ 
                             
                             foiAchado = true;
                             System.Console.WriteLine("Informação encontrada:");
                             System.Console.WriteLine(linha);
                             System.Console.WriteLine("---------------------");
-                        }
-                    }
-        }
-
-            if(!foiAchado){
-
-                System.Console.WriteLine("O Nome escrito não foi encontrado, tem certeza que o inseriu corretamente?");
             }
+                
+             if(foiAchado == false){
 
-        if(mutex != null) {
-        mutex.ReleaseMutex();
+               
+            }
+*/
 
-    }
+        
    }
 
    catch(IOException ex){
