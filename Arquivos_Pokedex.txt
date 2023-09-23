@@ -1,0 +1,2 @@
+Nome do Pokemon:Pikachu , ID: 7ba7cd1f , Nivel: 30 , Data de Captura: 10/12/2012 00:00:00 , É Shiny: False , Peso: 50kg
+--------------------------

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 namespace Assessment{ 
 public class FuncoesMenu : IFuncoes{
@@ -12,6 +13,11 @@ public class FuncoesMenu : IFuncoes{
         protected double variavelAuxiliarPeso;
         protected bool variavelAuxiliarShiny;
         protected String kg = "kg";
+
+        private static Mutex mutex = new Mutex();
+
+        private string caminho = "Arquivos_Pokedex.txt";
+
     public  StreamWriter arquivar = new StreamWriter(@"Arquivos_Pokedex.txt", true);
 
  List<String> listagem = new List<String>();
@@ -119,7 +125,7 @@ public class FuncoesMenu : IFuncoes{
         Console.WriteLine("Sucesso na Operação, obrigado por utilizar.");
         System.Console.WriteLine("Para Procurar pelo Pokemon, procure por: " + getNomePokemon());
 
-arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon() + " , " + "ID: " + IdPokedex + " , " + "Nivel: " + getNivelPokemon() + " , " + "Data de Captura: " + getDataCaptura() + " , " + "É Shiny: " +  AuxShinyConvertido + " , " + "Peso: " + getPesoPokemon() + kg);
+arquivar.WriteLine("Nome do Pokemon:" + getNomePokemon() + " , " + "ID: " + IdPokedex + " , " + "Nivel: " + getNivelPokemon() + " , " + "Data de Captura: " + getDataCaptura() + " , " + "É Shiny: " +  AuxShinyConvertido + " , " + "Peso: " + getPesoPokemon() + kg);
    
     arquivar.WriteLine("--------------------------");
     arquivar.Close();
@@ -219,7 +225,6 @@ arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon() + " , " + "ID: " + IdP
         }  
 }
 
-
 public void alterarDados(){
 
      try{
@@ -243,18 +248,26 @@ catch{
     public void  pesquisarDadoPorNome(){
 
  try { 
-    
+
         System.Console.WriteLine("Escreva o nome que quer procurar.");
         string nome_Sendo_Procurado = Console.ReadLine();
         
         bool foiAchado = false;
 
-    using(StreamReader reader = new StreamReader(@"Arquivos_Pokedex.txt")){
+        System.Console.WriteLine("Aguarde um pouco........");
+        Thread.Sleep(3000);
+
+      if(mutex != null){
+
+        mutex.WaitOne();
+      }
+
+    using(StreamReader reader = new StreamReader(@"Arquivos_Pokedex.txt", true)){
 
             string linha;
             while((linha = reader.ReadLine()) != null){
 
-                        if(linha.Contains("Nome: " + nome_Sendo_Procurado )){ 
+                        if(linha.Contains("Nome:" + nome_Sendo_Procurado )){ 
                             
                             foiAchado = true;
                             System.Console.WriteLine("Informação encontrada:");
@@ -262,12 +275,28 @@ catch{
                             System.Console.WriteLine("---------------------");
                         }
                     }
-            }
-            if(!foiAchado ){
+        }
+
+            if(!foiAchado){
 
                 System.Console.WriteLine("O Nome escrito não foi encontrado, tem certeza que o inseriu corretamente?");
             }
+
+        if(mutex != null) {
+        mutex.ReleaseMutex();
+
+    }
    }
+
+   catch(IOException ex){
+
+    System.Console.WriteLine("Erro" + ex.Message);
+    System.Console.WriteLine("Tentando novamente em alguns segundos.");
+    Thread.Sleep(5000);
+    pesquisarDadoPorNome();
+    return;
+   }
+
    catch(Exception ex){
 
     System.Console.WriteLine("Ocorreu um Erro, tente novamente." + ex.Message);
