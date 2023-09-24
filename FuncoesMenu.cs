@@ -242,6 +242,43 @@ public void alterarDados(){
 
      try{
 
+        System.Console.WriteLine("Qual linha voce quer alterar, informe o nome do pokemon.");
+        
+        string respostaParaAlterar = Console.ReadLine();
+        string procurar = respostaParaAlterar;
+        string textoAntesDeAlterar;
+        string n = "";
+
+        System.Console.WriteLine("E o que vc vai alterar? , altere no mesmo formato, Nome, ID, Nivel,DataDeCaptura,SeEShinyOuNao, Peso");
+        System.Console.WriteLine("------------------------------------------");
+        String respostaAlterada = Console.ReadLine();
+
+        StreamReader sr = File.OpenText(caminho);
+
+        while((textoAntesDeAlterar = sr.ReadLine()) != null){
+
+            if(!textoAntesDeAlterar.Contains(procurar)){
+
+                n += textoAntesDeAlterar + Environment.NewLine;
+                System.Console.WriteLine("Alteramos aquilo que desejava.");
+                System.Console.WriteLine("---------------------------------");
+            }
+            else{
+
+                procurar.Replace(procurar, respostaAlterada);
+            }
+            
+        }     
+            sr.Close();
+            File.WriteAllText(caminho, respostaAlterada);
+
+
+
+
+
+
+
+
             }
 catch(Exception ex){
     System.Console.WriteLine("Algo de Errado Ocorreu." + ex.Message);
@@ -249,27 +286,7 @@ catch(Exception ex){
 }
 public void ExcluirDados(){
      try{
-/*
-        System.Console.WriteLine("Se Chegou nesta parte do programa, é porque quer deletar uma linha, iremos repassar a etapa anterior para que possa escolher o que quer deletar");
-        
-        System.Console.WriteLine("-------------------------");
 
-        System.Console.WriteLine("Mostrando Todas as linhas de texto para que você escolha....");;
-        Thread.Sleep(5000);
-
-        pesquisarDadoPorNome();
-
-        System.Console.WriteLine("-------------------------------");
-        System.Console.WriteLine("Qual linha voce quer deletar?");
-        string respostaParaDeletar = Console.ReadLine();
-
-
-        using(StreamReader reader = new StreamReader(caminho)){
-
-            while()
-
-        }
-*/  
             System.Console.WriteLine("----------------------------------------------");
             System.Console.WriteLine("Se Chegou nesta parte do programa, é porque quer deletar uma linha, iremos repassar a Funcao anterior para que possa escolher o que quer deletar");
         

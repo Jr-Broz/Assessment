@@ -6,7 +6,7 @@ public class Pokedex : FuncoesMenu{
     String resposta;
     do { 
 
-    System.Console.WriteLine("Saudacoes, usuario escolha [1] para que os dados sejam salvos em arquivo de texto | [2] Para ser salvo em lista. [3] Para procurar por um Nome de pokemon em específico | [4] Para excluir algum Dado | [6] Para Sair do programa. ");
+    System.Console.WriteLine("Saudacoes, usuario escolha [1] Para que os dados sejam salvos em arquivo de texto | [2] Para ser salvo em lista. [3] Para procurar por um Nome de pokemon em específico | [4] Para excluir algum Dado | [5] Para Alterar Dados Ja Existentes. | [6] Para Sair do programa. ");
         resposta = Console.ReadLine();
 
 switch(resposta){
