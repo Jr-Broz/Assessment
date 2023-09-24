@@ -15,7 +15,7 @@ public class FuncoesMenu : IFuncoes{
         protected String kg = "kg";
 
         private static Mutex mutex = new Mutex();
-
+    string respostaPraPergunta;
         private string caminho = "Arquivos_Pokedex.txt";
 
     public  StreamWriter arquivar = new StreamWriter(@"Arquivos_Pokedex.txt", true);
@@ -86,6 +86,7 @@ public class FuncoesMenu : IFuncoes{
  public void SalvarEmTexto(){
 
  try { 
+    do { 
         Console.WriteLine("Escreva o nome do pokemon");
         setNomePokemon(Console.ReadLine()); 
 
@@ -93,7 +94,7 @@ public class FuncoesMenu : IFuncoes{
         variavelAuxiliarPeso = Double.Parse(Console.ReadLine());
         setPesoPokemon(variavelAuxiliarPeso);
 
-        Console.WriteLine("O pokemon E Shiny?");
+        Console.WriteLine("O pokemon E Shiny? -> true  || false ");
         variavelAuxiliarShiny = Boolean.Parse(Console.ReadLine());
 
          String AuxShinyConvertido = Convert.ToString(variavelAuxiliarShiny);    
@@ -127,9 +128,21 @@ public class FuncoesMenu : IFuncoes{
 
 arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon() + "," + " ID: " + IdPokedex + "," + " Nivel: " + getNivelPokemon() + "," + " Data de Captura: " + getDataCaptura() + "," + " É Shiny: " +  AuxShinyConvertido + "," + " Peso: " + getPesoPokemon() + kg);
    
+System.Console.WriteLine("Quer Adicionar Mais algum?");
+ respostaPraPergunta = Console.ReadLine();
+
+    if(respostaPraPergunta == "sim"){
+
+        continue;
+    }
+
+
     arquivar.WriteLine("--------------------------");
     arquivar.Close();
-}
+
+}   while (respostaPraPergunta != "nao".ToLower());
+ }    
+
     catch(Exception ex){
 
     System.Console.WriteLine("Ocorreu um Erro ao Cadastrar O Pokemon na Pokedex." + ex.Message);
@@ -145,7 +158,7 @@ arquivar.WriteLine("Nome do Pokemon: " + getNomePokemon() + "," + " ID: " + IdPo
         variavelAuxiliarPeso = Double.Parse(Console.ReadLine());
         setPesoPokemon(variavelAuxiliarPeso);
 
-        Console.WriteLine("O pokemon E Shiny?");
+        Console.WriteLine("O pokemon E Shiny? -> true  ||  false");
         variavelAuxiliarShiny = Boolean.Parse(Console.ReadLine());	
         
         if(variavelAuxiliarShiny == true){
@@ -236,10 +249,68 @@ catch(Exception ex){
 }
 public void ExcluirDados(){
      try{
+/*
+        System.Console.WriteLine("Se Chegou nesta parte do programa, é porque quer deletar uma linha, iremos repassar a etapa anterior para que possa escolher o que quer deletar");
+        
+        System.Console.WriteLine("-------------------------");
+
+        System.Console.WriteLine("Mostrando Todas as linhas de texto para que você escolha....");;
+        Thread.Sleep(5000);
+
+        pesquisarDadoPorNome();
+
+        System.Console.WriteLine("-------------------------------");
+        System.Console.WriteLine("Qual linha voce quer deletar?");
+        string respostaParaDeletar = Console.ReadLine();
 
 
+        using(StreamReader reader = new StreamReader(caminho)){
 
+            while()
+
+        }
+*/  
+            System.Console.WriteLine("----------------------------------------------");
+            System.Console.WriteLine("Se Chegou nesta parte do programa, é porque quer deletar uma linha, iremos repassar a Funcao anterior para que possa escolher o que quer deletar");
+        
+        System.Console.WriteLine("-------------------------");
+
+
+        System.Console.WriteLine("Mostrando Todas as linhas de texto para que você escolha....");;
+        Thread.Sleep(5000);
+
+        pesquisarDadoPorNome();
+
+        System.Console.WriteLine("Qual o Nome do pokemon voce quer deletar?");
+        string respostaParaDeletar = Console.ReadLine();
+        string procurar = respostaParaDeletar;
+        string textoAntesDeletar;
+        string n = "";
+
+        StreamReader sr = File.OpenText(caminho);
+
+        while((textoAntesDeletar = sr.ReadLine()) != null){
+
+            if(!textoAntesDeletar.Contains(procurar)){
+
+                n += textoAntesDeletar + Environment.NewLine;
+                System.Console.WriteLine("Apagamos o que desejava, obrigado por utilizar.");
             }
+            
+        }     
+            sr.Close();
+            File.WriteAllText(caminho, n);
+
+
+
+     
+    // var lines = File.ReadLines(caminho).Where(line => line.Trim() != respostaParaDeletar).ToArray();
+    // File.WriteAllLines(respostaParaDeletar, lines);
+
+        
+
+
+     }
 catch{
     System.Console.WriteLine("Algo de Errado Ocorreu.");
 }
