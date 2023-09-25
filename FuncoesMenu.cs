@@ -10,17 +10,29 @@ public class FuncoesMenu : IFuncoes{
         protected int NivelPokemon;
         protected DateTime dataDaCaptura;
         protected String IdPokedex;     
-        protected double variavelAuxiliarPeso;
-        protected bool variavelAuxiliarShiny;
+        public double variavelAuxiliarPeso;
+        public bool variavelAuxiliarShiny;
         protected String kg = "kg";
 
         private static Mutex mutex = new Mutex();
-    string respostaPraPergunta;
+        string respostaPraPergunta;
         private string caminho = "Arquivos_Pokedex.txt";
 
-    public  StreamWriter arquivar = new StreamWriter(@"Arquivos_Pokedex.txt", true);
+        public  StreamWriter arquivar = new StreamWriter(@"Arquivos_Pokedex.txt", true);
+        string rp2;
 
  List<String> listagem = new List<String>();
+
+             double novoPeso;
+            String novoPesoString;
+             int novoNivel;
+            String novoNivelString;
+            Boolean novoShiny;
+            String novoShinyString;
+
+                DateTime novaData;
+                String novaDataString;
+
 
     public void setNomePokemon(String nomePokemon){
 
@@ -136,7 +148,6 @@ System.Console.WriteLine("Quer Adicionar Mais algum?");
         continue;
     }
 
-
     arquivar.WriteLine("--------------------------");
     arquivar.Close();
 
@@ -238,7 +249,7 @@ System.Console.WriteLine("Quer Adicionar Mais algum?");
         }  
 }
 
-public void alterarDados(){
+public void alterarDadosParaTexto(){
 
      try{
 
@@ -284,7 +295,7 @@ catch(Exception ex){
     System.Console.WriteLine("Algo de Errado Ocorreu." + ex.Message);
 }
 }
-public void ExcluirDados(){
+public void ExcluirDadosParaTexto(){
      try{
 
             System.Console.WriteLine("----------------------------------------------");
@@ -296,7 +307,7 @@ public void ExcluirDados(){
         System.Console.WriteLine("Mostrando Todas as linhas de texto para que você escolha....");;
         Thread.Sleep(5000);
 
-        pesquisarDadoPorNome();
+        pesquisarDadoPorNomeParaTexto();
 
         System.Console.WriteLine("Qual o Nome do pokemon voce quer deletar?");
         string respostaParaDeletar = Console.ReadLine();
@@ -333,10 +344,10 @@ catch{
 }
 }
 
-    public void  pesquisarDadoPorNome(){
+    public void  pesquisarDadoPorNomeParaTexto(){
 
  try { 
-        System.Console.WriteLine("Escreva o nome que quer procurar.");
+        System.Console.WriteLine("Escreva o que quer procurar (nome, nivel, etc).");
         string nome_Sendo_Procurado = Console.ReadLine();
         
         bool foiAchado = false;
@@ -364,22 +375,6 @@ catch{
 
              System.Console.WriteLine("O Nome escrito não foi encontrado, tem certeza que o inseriu corretamente?");
         }
-            /*
-
-                if(linha.Contains("Nome:" + nome_Sendo_Procurado )){ 
-                            
-                            foiAchado = true;
-                            System.Console.WriteLine("Informação encontrada:");
-                            System.Console.WriteLine(linha);
-                            System.Console.WriteLine("---------------------");
-            }
-                
-             if(foiAchado == false){
-
-               
-            }
-*/
-
         
    }
 
@@ -388,7 +383,7 @@ catch{
     System.Console.WriteLine("Erro" + ex.Message);
     System.Console.WriteLine("Tentando novamente em alguns segundos.");
     Thread.Sleep(5000);
-    pesquisarDadoPorNome();
+    pesquisarDadoPorNomeParaTexto();
     return;
    }
 
@@ -397,5 +392,334 @@ catch{
     System.Console.WriteLine("Ocorreu um Erro, tente novamente." + ex.Message);
    }
     }
+
+
+    public void AlterarDadosLista(){
+
+    try { 
+        
+    System.Console.WriteLine("Iremos repassar a Lista.");
+
+    string  variavelAuxiliarId =  Convert.ToString(getIdPokedex());
+    string dataCapConvetida = Convert.ToString(getDataCaptura());
+    string nivelConvert = Convert.ToString(NivelPokemon);
+    string shinyConvertido = Convert.ToString(variavelAuxiliarShiny);
+    string pesoconvert = Convert.ToString(PesoPokemon);
+
+    foreach(string element in listagem){
+       
+    if(element == getNomePokemon()){
+
+        System.Console.WriteLine("Nome Pokemon: " + getNomePokemon());
+    }
+    
+    else  if(element == getIdPokedex()){
+
+        System.Console.WriteLine("ID: " + variavelAuxiliarId);
+    }
+    
+    else if(element == dataCapConvetida){
+
+        System.Console.WriteLine("Data de Captura : " + getDataCaptura());
+    }
+    
+   else  if(element == nivelConvert){
+
+        System.Console.WriteLine("Nivel Pokemon: " + getNivelPokemon());
+    }
+    
+    else if(element == shinyConvertido){
+
+        System.Console.WriteLine("É Shiny? : " + shinyConvertido);
+}
+    
+    else if(element == pesoconvert){
+
+        System.Console.WriteLine("Peso: " + pesoconvert);
+    }
+        }
+
+        System.Console.WriteLine("-----------------------");
+        System.Console.WriteLine("Quer Alterar o que ?");       
+        String resposta = Console.ReadLine();
+
+    if(resposta == "Nome".ToLower()){
+
+            System.Console.WriteLine("-------------------------------");
+            System.Console.WriteLine("Insira o Novo Nome: ");
+            String novo_Nome = Console.ReadLine();
+
+            setNomePokemon(novo_Nome);
+            listagem.Add(novo_Nome);
+            System.Console.WriteLine("Novo Nome: " + getNomePokemon());
+        }
+       else  if(resposta == "Id".ToLower()){
+
+                System.Console.WriteLine("-----------------------------");
+                System.Console.WriteLine("Insira um Novo ID");
+                String novo_ID = Console.ReadLine();
+
+                setIdPokedex(novo_ID);
+                listagem.Add(novo_ID);
+                System.Console.WriteLine("Novo ID: " + getIdPokedex());
+            }
+    
+    else if(resposta == "Nivel".ToLower()){
+
+                System.Console.WriteLine("-----------------------------");
+                System.Console.WriteLine("Insira um Novo ID");
+    
+                 novoNivel = Convert.ToInt32(Console.ReadLine());
+                 novoNivelString = Convert.ToString(novoNivel);
+                setNivelPokemon(novoNivel);
+
+                listagem.Add(novoNivelString);
+                System.Console.WriteLine("Novo Nivel: " + getNivelPokemon());
+    }
+
+                else if(resposta == "Peso".ToLower()){
+               
+                System.Console.WriteLine("-----------------------------");
+                System.Console.WriteLine("Insira o Novo Peso");
+    
+               novoPeso = Convert.ToDouble(Console.ReadLine());
+               novoPesoString = Convert.ToString(novoPeso);
+
+                setPesoPokemon (novoPeso);
+                listagem.Add(novoPesoString);
+                System.Console.WriteLine("Novo Peso: " + novoPesoString + kg);
+    }
+
+        else if(resposta == "Data".ToLower()){
+
+                System.Console.WriteLine("-----------------------------");
+                System.Console.WriteLine("Insira a nova Data da captura");
+   
+                 novaData = Convert.ToDateTime(Console.ReadLine());
+                 novaDataString = Convert.ToString(novaData);
+        
+                setDataCaptura(novaData);
+                listagem.Add(novaDataString);
+                System.Console.WriteLine("Nova Data de Captura: " + novaDataString);     
+        }
+
+        else if(resposta == "Shiny".ToLower()){
+
+                System.Console.WriteLine("-----------------------------");
+                System.Console.WriteLine("Insira a nova Data da captura");
+
+                 novoShiny = Convert.ToBoolean(Console.ReadLine());
+                 novoShinyString = Convert.ToString(novoShiny);
+
+                setEh_Pokemon_Shiny(novoShiny);
+                listagem.Add(novoShinyString);
+                System.Console.WriteLine("E Shiny ou Nao: " + novoShinyString);
+        }
+       
+    else {
+        System.Console.WriteLine("Programa ainda rodando.........");
+    }       
+}
+    catch(Exception Ex){
+
+        System.Console.WriteLine("Error" + Ex.Message);
+    }
+}
+public void PesquisarDadoNomeLista(){
+
+
+        try{ 
+
+            do { 
+        System.Console.WriteLine("Se chegou aqui e porque voce procura por algum dado em especifico, escreva abaixo pelo que quer procura");
+        String procura = Console.ReadLine();
+
+        if(procura ==  "Nome".ToLower()){
+
+            System.Console.WriteLine("E isso que procura? " + getNomePokemon());
+        }
+            else if(procura == "Id".ToLower()){
+
+                System.Console.WriteLine("ID do pokemon: " + getIdPokedex());
+            }
+
+        else if(procura == "Nivel".ToLower()){
+                                                            //Talvez tenha que mudar pro getNivelPokemon()
+            System.Console.WriteLine("E isso que procura: " + "LVL: " + NivelPokemon);
+
+        }
+            else if(procura == "Shiny".ToLower()){
+
+                System.Console.WriteLine("E Shiny: " + Eh_Pokemon_Shiny);
+            }
+
+        else if(procura == "Peso".ToLower()){
+
+            System.Console.WriteLine("E isso que procura: " + PesoPokemon + kg);
+        }
+
+        else if(procura == "Data".ToLower()){
+
+            System.Console.WriteLine("Data de Captura E: " + dataDaCaptura);
+        }
+
+            else{
+
+                System.Console.WriteLine("Nao foi possível achar aquilo que queria.");
+            }
+
+        System.Console.WriteLine("Deseja procurar mais alguma coisa? [1] Para sim [2] Para nao");
+         rp2 = Console.ReadLine();
+}
+while(rp2 != "2");
+}
+catch(Exception ex){
+
+    System.Console.WriteLine("Algo de errado ocorreu" + ex.Message);
+}
+}
+
+public void ExcluirDadosParaLista(){
+
+try { 
+
+    System.Console.WriteLine("O que exatamente voce quer Deletar");
+    String RespostaFinal  = Console.ReadLine();
+
+        if(RespostaFinal == "Nome".ToLower()){
+            
+            System.Console.WriteLine("Removendo nome......");
+            listagem.Remove(getNomePokemon());
+            listagem.RemoveAt(0);            
+
+
+        }
+            else if(RespostaFinal == "Id".ToLower()){
+
+                System.Console.WriteLine("Removendo ID");
+                listagem.Remove(getIdPokedex());
+
+
+            }
+            else if(RespostaFinal == "Peso".ToLower()){
+
+                System.Console.WriteLine("Removendo peso.");
+                listagem.Remove(novoPesoString);
+            }
+
+        else if(RespostaFinal == "Nivel"){
+
+            System.Console.WriteLine("Removendo Nivel.");
+            listagem.Remove(novoNivelString);
+        }
+        else if(RespostaFinal == "Shiny".ToLower()){
+
+            System.Console.WriteLine("Removendo se e Shiny ou Nao");
+            listagem.Remove(novoShinyString);
+
+        }
+
+    else if(RespostaFinal == "Data".ToLower()){
+
+        System.Console.WriteLine("Removendo a Data da Captura");
+
+        listagem.Remove(novaDataString);
+    }
+
+}
+catch(Exception ex){
+
+    System.Console.WriteLine("Algum erro Ocorreu" + ex.Message);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }   //Fim da classe.
 } //Fim namespace.

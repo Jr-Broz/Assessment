@@ -4,10 +4,12 @@ namespace Assessment{
 public class Pokedex : FuncoesMenu{             
     public void MostrarMenu(){
     String resposta;
+    
     do { 
 
-    System.Console.WriteLine("Saudacoes, usuario escolha [1] Para que os dados sejam salvos em arquivo de texto | [2] Para ser salvo em lista. [3] Para procurar por um Nome de pokemon em específico | [4] Para excluir algum Dado | [5] Para Alterar Dados Ja Existentes. | [6] Para Sair do programa. ");
-        resposta = Console.ReadLine();
+System.Console.WriteLine("Saudacoes, usuario escolha [1] Para que os dados sejam salvos em arquivo de texto | [2] Para ser salvo em lista [3] Para procurar por um Nome de pokemon em específico Em Formato de Texto | [4] Para excluir algum Dado Em Formato de Texto | [5] Para Alterar Dados Ja Existentes Em Formato de Texto | [6] Para Procurar por Arquivo especifico em Lista |  [7] Para Excluir dados Especificos em Lista | [8] Para Alterar Dados em Lista | [9] Para Sair do Programa" ) ;
+    Console.WriteLine("------------------------------");
+    resposta = Console.ReadLine();
 
 switch(resposta){
 
@@ -23,20 +25,34 @@ switch(resposta){
 
     case "3":
 
-    pesquisarDadoPorNome();
+    pesquisarDadoPorNomeParaTexto();
     break;
 
     case "4":
 
-    ExcluirDados();
+    ExcluirDadosParaTexto();
     break;
 
-
     case "5":
-    alterarDados();
+    alterarDadosParaTexto();
     break;
 
     case "6":
+     PesquisarDadoNomeLista();    
+    break;
+
+    
+    case "7":
+  ExcluirDadosParaLista();
+    break;
+
+    
+    case "8":
+   AlterarDadosLista();
+ 
+    break;
+
+    case "9":
 
     break;
 
@@ -44,7 +60,7 @@ switch(resposta){
     System.Console.WriteLine("Esperando Input correto");
     Thread.Sleep(1500);
     Console.Clear();
-    break;   
+    break;      
 } 
 
 }while(resposta != "6");
@@ -58,7 +74,7 @@ switch(resposta){
             switch(resposta){
 
                 case "1":
-                pesquisarDadoPorNome();
+                pesquisarDadoPorNomeParaTexto();
                 break;
 
                 default:
