@@ -283,13 +283,6 @@ public void alterarDadosParaTexto(){
             sr.Close();
             File.WriteAllText(caminho, respostaAlterada);
 
-
-
-
-
-
-
-
             }
 catch(Exception ex){
     System.Console.WriteLine("Algo de Errado Ocorreu." + ex.Message);
@@ -309,7 +302,7 @@ public void ExcluirDadosParaTexto(){
 
         pesquisarDadoPorNomeParaTexto();
 
-        System.Console.WriteLine("Qual o Nome do pokemon voce quer deletar?");
+        System.Console.WriteLine("Qual o Nome do pokemon que voce quer deletar?");
         string respostaParaDeletar = Console.ReadLine();
         string procurar = respostaParaDeletar;
         string textoAntesDeletar;
@@ -328,16 +321,6 @@ public void ExcluirDadosParaTexto(){
         }     
             sr.Close();
             File.WriteAllText(caminho, n);
-
-
-
-     
-    // var lines = File.ReadLines(caminho).Where(line => line.Trim() != respostaParaDeletar).ToArray();
-    // File.WriteAllLines(respostaParaDeletar, lines);
-
-        
-
-
      }
 catch{
     System.Console.WriteLine("Algo de Errado Ocorreu.");
@@ -377,7 +360,6 @@ catch{
         }
         
    }
-
    catch(IOException ex){
 
     System.Console.WriteLine("Erro" + ex.Message);
@@ -392,8 +374,6 @@ catch{
     System.Console.WriteLine("Ocorreu um Erro, tente novamente." + ex.Message);
    }
     }
-
-
     public void AlterarDadosLista(){
 
     try { 
@@ -489,7 +469,6 @@ catch{
                 listagem.Add(novoPesoString);
                 System.Console.WriteLine("Novo Peso: " + novoPesoString + kg);
     }
-
         else if(resposta == "Data".ToLower()){
 
                 System.Console.WriteLine("-----------------------------");
@@ -514,8 +493,7 @@ catch{
                 setEh_Pokemon_Shiny(novoShiny);
                 listagem.Add(novoShinyString);
                 System.Console.WriteLine("E Shiny ou Nao: " + novoShinyString);
-        }
-       
+        }       
     else {
         System.Console.WriteLine("Programa ainda rodando.........");
     }       
@@ -526,7 +504,6 @@ catch{
     }
 }
 public void PesquisarDadoNomeLista(){
-
 
         try{ 
 
@@ -570,27 +547,28 @@ public void PesquisarDadoNomeLista(){
 
         System.Console.WriteLine("Deseja procurar mais alguma coisa? [1] Para sim [2] Para nao");
          rp2 = Console.ReadLine();
+
 }
 while(rp2 != "2");
 }
 catch(Exception ex){
 
     System.Console.WriteLine("Algo de errado ocorreu" + ex.Message);
+    }
 }
-}
-
 public void ExcluirDadosParaLista(){
 
 try { 
 
+    System.Console.WriteLine("-----------------------------------");
     System.Console.WriteLine("O que exatamente voce quer Deletar");
-    String RespostaFinal  = Console.ReadLine();
+    String RespostaFinal  = Console.ReadLine().ToLower();
 
-        if(RespostaFinal == "Nome".ToLower()){
+
+        if(RespostaFinal == "Nome".ToLower() && getNomePokemon() != null){
             
+            listagem.RemoveAll(l => l == getNomePokemon()  ||  l == NomePokemon);
             System.Console.WriteLine("Removendo nome......");
-            listagem.Remove(getNomePokemon());
-            listagem.RemoveAt(0);            
 
 
         }
@@ -631,95 +609,6 @@ catch(Exception ex){
 
     System.Console.WriteLine("Algum erro Ocorreu" + ex.Message);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}   //Fim da classe.
+        }
+    }   //Fim da classe.
 } //Fim namespace.
