@@ -5,11 +5,13 @@ public class Pokedex : FuncoesMenu{
     public void MostrarMenu(){
     String resposta;
     
-    do { 
+    do {     
+System.Console.WriteLine("Escolha [1] Para que os dados sejam salvos em arquivo de texto  | [3] Para procurar por um Nome de pokemon em específico Em Formato de Texto | [4] Para excluir algum Dado Em Formato de Texto | [5] Para Alterar Dados Ja Existentes Em Formato de Texto ");
+Console.WriteLine("--------------------------------------------------------------------");
 
-System.Console.WriteLine("Saudacoes, usuario escolha [1] Para que os dados sejam salvos em arquivo de texto | [2] Para ser salvo em lista [3] Para procurar por um Nome de pokemon em específico Em Formato de Texto | [4] Para excluir algum Dado Em Formato de Texto | [5] Para Alterar Dados Ja Existentes Em Formato de Texto | [6] Para Procurar por Arquivo especifico em Lista |  [7] Para Excluir dados Especificos em Lista | [8] Para Alterar Dados em Lista | [9] Para Sair do Programa" ) ;
-    Console.WriteLine("------------------------------");
-    resposta = Console.ReadLine();
+System.Console.WriteLine("[2] Para Salvar em Lista [6] Para Procurar por Arquivo especifico em Lista |  [7] Para Excluir dados Especificos em Lista | [8] Para Alterar Dados em Lista | [9] Para Sair do Programa" ) ;
+Console.WriteLine("--------------------------------------------------------------------"); 
+resposta = Console.ReadLine();
 
 switch(resposta){
 
